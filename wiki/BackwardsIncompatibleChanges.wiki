@@ -1,0 +1,11 @@
+#summary Backwards-incompatible changes to Django MPTT since the 0.1 release.
+#labels Featured
+
+This page lists backwards-incompatible changed to Django MPTT since the 0.1 release.
+
+==Changes made after Django MPTT 0.1==
+
+===Revision 41: Simplified the node movement API===
+`TreeManager.move_node` is now the only public means of moving a node using `TreeManager` - it can figure out what to do based on the node and target given. All other node movement methods which were previously documented as public have been renamed to begin with underscores, indicating that they are for internal use.
+
+This also has the benefit of simplifying implementation somewhat, as the methods which actually do the moving can trust ``move_node`` to give them the correct types of nodes when it matters that a given node must be a root node or a child node.
