@@ -1,0 +1,50 @@
+#summary Feature planning and ideas which could become planned features
+#labels Phase-Design,Featured
+
+*This page contains details of features which have been earmarked for implementation and ideas for future features.*
+
+Suggestions are welcome! Comment on this page or create an Issue with feature details (don't worry about the fact that Google Code won't let you mark it as an Enhancement yourself).
+
+=Planned features=
+
+_Features which will be implemented at some point._
+
+*None yet.*
+
+=Ideas=
+
+_Ideas for features - any details, APIs and example code presented in this section are on a purely speculative, would-like-to-have basis._
+
+==Tree management views (with `django.contrib.admin` integration)==
+
+Create views for managing the tree of any Model MPTT has been used with. Probably best to leave any `django.contrib.admin` integration until the [http://code.djangoproject.com/wiki/NewformsAdminBranch newforms-admin] branch lands in trunk.
+
+How easy would it be to provide admin-specific templates and more general templates should someone wish to use this functionality in [http://www.jonathanbuchanan.plus.com/images/admin.jpg their own app]?
+
+===Views===
+
+  * A list of any Models MPTT has been used with, similar to the admin's current front page. Each model would have the following links:
+    * *Browse* - takes you to the node browsing view, starting at root nodes. This is also where the Model name link should take you.
+    * *Full Tree* - takes you directly to the tree display/editing view for the full tree - convenient to be able to go there directly for small sets of data.
+  * A node browsing view which allows drilling down through the levels of the tree and selecting a node/nodes for display/editing.
+  * Display/editing of the subtree for a specified node or nodes, or the full tree. Features:
+    * Tree display - progressively enhanced for expansion/contraction.
+    * Node movement - progressively enhanced to use XMLHttpRequest, with a live tree update if the tree the node ends up in is currently displayed.
+    * Other progressive enhancements - dynamic loading of more items? This could potentially be used to browse or search for other nodes to select a target for a node move.
+
+    Consider someone who needs to be able to move a deeply nested leaf node to a level halfway down some other tree - what would be a nice interface for making this kind of change?
+
+===Usage===
+
+In the case of the admin app, provide an admin URLConf to be included before the admin's own URLConf:
+
+{{{
+urlpatterns = patterns('',
+    (r'admin/', include('mptt.admin.urls')),
+    (r'admin/', include('django.contrib.admin.urls')),
+)
+}}}
+
+===Related work===
+
+  * At the moment, there's no record of which Models MPTT has been used with - keeping a record of these as `treeify` is called would make it easy to determine which, if any, Models should be displayed in these views (and prevent multiple calls for the same Model).
