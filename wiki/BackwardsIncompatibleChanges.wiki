@@ -5,10 +5,8 @@ This page lists backwards-incompatible changes to Django MPTT since the 0.1 rele
 
 ==Changes made after Django MPTT 0.1==
 
-===Revision 49: Moving nodes to be siblings of root nodes - error behaviour changed===
-Moving a node to be a sibling of a root node has now been implemented. This move is a special case, since we use per-root tree ids to reduce the number of rows affected by tree mangement during insertion and deletion, so root nodes are not true siblings.
-
-Attempting make this move in 0.1 would result in `InvalidMove` being raised. Now, it will only be raised if you attempt to make a root node its own sibling.
+===Revision 77: Model registration changed===
+Registering a model for MPTT is now handled by calling `mptt.register` instead of `mptt.models.treeify`.
 
 ===Revision 41: Simplified the node movement API===
 `TreeManager.move_node` is now the _only_ public means of moving a node using `TreeManager` - it can figure out what to do based on the node and target given. All other node movement methods which were previously documented as public have been renamed to begin with underscores, indicating that they are for internal use.
