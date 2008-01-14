@@ -23,6 +23,22 @@ Completing the manual insertion API first would mean we could just call that to 
 
 _Ideas for features - any details, APIs and example code presented in this section are on a purely speculative, would-like-to-have basis._
 
+==Newforms components for selecting tree nodes==
+
+Comment by [http://code.google.com/u/ajaksu/ ajaksu] on Jan 06, 2008:
+
+  How about simple support to use nodes as tags? So you can have independent hierarchical trees of categories that can be associated with items in a sort of "Trove classifiers" way. Would be very useful to tons of projects.
+
+Reply:
+
+  Would a many-to-many relationship from a given model to the tree model effectively give you that? If you were to display a multiple select and displayed the full path to each node in the select, I think you'd have pretty much what PyPi! gives you when you're maintaining your own project details.
+
+  If there was a utility for displaying the full path to a node when working with a tree of items, this could be made quite easy - we could also provide a newforms widget which displays this kind of multiple select for you.
+
+As a result of this request, the `tree_path` template filter and an argument to `tree_info` filter/`tree_item_iterator` function which results the unicode representation of a node's ancestors being added to the resulting tree structure `dict` were both added in revision 69.
+
+These could be used as part of the implementation of a `newforms` `Field`/`Widget` for selecting tree nodes, with an option to display the full path to each node.
+
 ==Tree management views (with `django.contrib.admin` integration)==
 
 Create views for managing the tree of any Model MPTT has been used with. Probably best to leave any `django.contrib.admin` integration until the [http://code.djangoproject.com/wiki/NewformsAdminBranch newforms-admin] branch lands in trunk.
@@ -55,7 +71,7 @@ urlpatterns = patterns('',
 
 ===Related work===
 
-  * At the moment, there's no record of which Models MPTT has been used with - keeping a record of these as `treeify` is called would make it easy to determine which, if any, Models should be displayed in these views (and prevent multiple calls for the same Model).
+  * At the moment, there's no record of which Models MPTT has been used with - keeping a record of these as `mptt.register` is called would make it easy to determine which, if any, Models should be displayed in these views (and prevent multiple calls for the same Model).
 
 =Completed Features=
 
