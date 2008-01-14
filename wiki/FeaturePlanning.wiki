@@ -9,11 +9,15 @@ Suggestions are welcome! Comment on this page or create an Issue with feature de
 
 _Features which will be implemented at some point._
 
-==Getting root nodes==
+==Manual insertion API==
 
-[http://code.google.com/p/django-mptt/issues/detail?id=5 Issue 5] - add a method to retrieve the root node of a particular tree in the manager.
+Currently, nodes are always added as last children. Provide a means (likely a new method in `TreeManager`) of specifying an insertion point for a node which hasn't been saved yet, using target/position arguments. Modifying `pre_save` not to do anything if tree fields are already set should allow us to do this no problem.
 
-A model instance method to retrieve the root node for a given node's tree would also be handy.
+==Automatic ordering when inserting new nodes==
+
+Provide a new `order_insertion_by` argument to `mptt.register`, defaulting to `None`. Modify pre_save so that if a list of field names is given for this setting, we query the database to try to find the appropriate insertion point for the new node. If none is found, it becomes a last child, otherwise it becomes a previous sibling.
+
+Completing the manual insertion API first would mean we could just call that to set the appropriate tree fields.
 
 =Ideas=
 
@@ -52,3 +56,11 @@ urlpatterns = patterns('',
 ===Related work===
 
   * At the moment, there's no record of which Models MPTT has been used with - keeping a record of these as `treeify` is called would make it easy to determine which, if any, Models should be displayed in these views (and prevent multiple calls for the same Model).
+
+=Completed Features=
+
+==Getting root nodes (revisions 70 & 71)==
+
+[http://code.google.com/p/django-mptt/issues/detail?id=5 Issue 5] - add a method to retrieve the root node of a particular tree in the manager.
+
+A model instance method to retrieve the root node for a given node's tree would also be handy.
