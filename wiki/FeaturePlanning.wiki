@@ -9,9 +9,7 @@ Suggestions are welcome! Comment on this page or create an Issue with feature de
 
 _Features which will be implemented at some point._
 
-==Automatic ordering when inserting new nodes==
-
-Provide a new `order_insertion_by` argument to `mptt.register`, defaulting to `None`. Modify pre_save so that if a list of field names is given for this setting, we query the database to try to find the appropriate insertion point for the new node. If none is found, it becomes a last child, otherwise it becomes a previous sibling.
+*Nothing at the moment*
 
 =Ideas=
 
@@ -78,3 +76,7 @@ A model instance method to retrieve the root node for a given node's tree would 
 ==Manual insertion API (revsion 81)==
 
 Currently, nodes are always added as last children. Provide a means (likely a new method in `TreeManager`) of specifying an insertion point for a node which hasn't been saved yet, using target/position arguments. Modifying `pre_save` not to do anything if tree fields are already set should allow us to do this no problem.
+
+==Automatic ordering when inserting new nodes (revision 84)==
+
+Provide a new `order_insertion_by` argument to `mptt.register`, defaulting to `None`. Modify pre_save so that if a list of field names is given for this setting, we query the database to try to find the appropriate insertion point for the new node. If none is found, it becomes a last child, otherwise it becomes a previous sibling. Also implemented this for automatice reparenting.
