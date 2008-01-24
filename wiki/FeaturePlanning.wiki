@@ -23,10 +23,12 @@ WHERE
    AND (
        name > %(name)s
        OR (name = %(name)s AND size > %(size)s)
-       OR (name = %(name)s AND size = %(size)s AND date => %(date)s) -- => allows fallback to tree_id or lft when required
+       OR (name = %(name)s AND size = %(size)s AND date > %(date)s)
    )
 ORDER BY name, size, date, tree_id -- tree_id would be lft for child nodes
 }}}
+
+Any special cases required for ``NULL``able values?
 
 =Ideas=
 
