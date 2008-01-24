@@ -28,7 +28,7 @@ WHERE
 ORDER BY name, size, date, tree_id -- tree_id would be lft for child nodes
 }}}
 
-Any special cases required for ``NULL``able values?
+Any special cases required for `NULL` values?
 
 =Ideas=
 
