@@ -9,7 +9,24 @@ Suggestions are welcome! Comment on this page or create an Issue with feature de
 
 _Features which will be implemented at some point._
 
-*Nothing at the moment*
+==Make `order_insertion_by` a list==
+
+[http://djangopeople.net/brosner/ Brian Rosner] brought this up on #django - it really should have been the initial implementation.
+
+Given a list of fields (assume we're inserting a root node for this example), my initial thoughts are that you'd generate a query something like the following to find a suitable right sibling:
+
+{{{
+order_insertion_by = ['name', 'size', 'date']
+
+WHERE
+   parent IS NULL -- would be = %(parent)s for child nodes
+   AND (
+       (name > %(name)s
+       OR (name = %(name)s AND size > %(size)s)
+       OR (name = %(name)s AND size = %(size)s AND date => %(date)s) -- => allows fallback to tree_id or lft when required
+   )
+ORDER BY name, size, date, tree_id -- tree_id would be lft for child nodes
+}}}
 
 =Ideas=
 
