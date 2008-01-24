@@ -21,7 +21,7 @@ order_insertion_by = ['name', 'size', 'date']
 WHERE
    parent IS NULL -- would be = %(parent)s for child nodes
    AND (
-       (name > %(name)s
+       name > %(name)s
        OR (name = %(name)s AND size > %(size)s)
        OR (name = %(name)s AND size = %(size)s AND date => %(date)s) -- => allows fallback to tree_id or lft when required
    )
