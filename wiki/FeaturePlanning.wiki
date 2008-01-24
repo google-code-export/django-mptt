@@ -11,7 +11,7 @@ _Features which will be implemented at some point._
 
 ==Make `order_insertion_by` a list==
 
-[http://djangopeople.net/brosner/ Brian Rosner] brought this up on #django - it really should have been the initial implementation.
+[http://djangopeople.net/brosner/ Brian Rosner] [http://simon.bofh.ms/logger/django/2008/01/23/#R1324286 brought this up on #django] - it really should have been the initial implementation.
 
 Given a list of fields (assume we're inserting a root node for this example), my initial thoughts are that you'd generate a query something like the following to find a suitable right sibling:
 
