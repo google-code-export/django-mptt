@@ -13,6 +13,8 @@ Registering a model for MPTT is now handled by calling `mptt.register` instead o
 
 This also has the benefit of simplifying implementation somewhat, as the methods which actually do the moving can trust `move_node` to give them the correct types of nodes when it matters that a given node must be a root node or a child node.
 
+==Changes made after Django MPTT 0.2==
+
 ===Revision 100: Implemented ordering by multiple fields upon insertion===
 The `order_insertion_by` argument to `mptt.register` must now be a list or other iterable of field names.
 
