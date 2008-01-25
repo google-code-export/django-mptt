@@ -9,26 +9,7 @@ Suggestions are welcome! Comment on this page or create an Issue with feature de
 
 _Features which will be implemented at some point._
 
-==Make `order_insertion_by` a list==
-
-[http://djangopeople.net/brosner/ Brian Rosner] [http://simon.bofh.ms/logger/django/2008/01/23/#R1324286 brought this up on #django] - it really should have been the initial implementation.
-
-Given a list of fields (assume we're inserting a root node for this example), my initial thoughts are that you'd generate a query something like the following to find a suitable right sibling:
-
-{{{
-order_insertion_by = ['name', 'size', 'date']
-
-WHERE
-   parent IS NULL -- would be = %(parent)s for child nodes
-   AND (
-       name > %(name)s
-       OR (name = %(name)s AND size > %(size)s)
-       OR (name = %(name)s AND size = %(size)s AND date > %(date)s)
-   )
-ORDER BY name, size, date, tree_id -- tree_id would be lft for child nodes
-}}}
-
-Any special cases required for `NULL` values?
+*None at the moment.*
 
 =Ideas=
 
@@ -92,10 +73,31 @@ urlpatterns = patterns('',
 
 A model instance method to retrieve the root node for a given node's tree would also be handy.
 
-==Manual insertion API (revsion 81)==
+==Manual insertion API (revision 81)==
 
 Currently, nodes are always added as last children. Provide a means (likely a new method in `TreeManager`) of specifying an insertion point for a node which hasn't been saved yet, using target/position arguments. Modifying `pre_save` not to do anything if tree fields are already set should allow us to do this no problem.
 
 ==Automatic ordering when inserting new nodes (revision 84)==
 
 Provide a new `order_insertion_by` argument to `mptt.register`, defaulting to `None`. Modify pre_save so that if a list of field names is given for this setting, we query the database to try to find the appropriate insertion point for the new node. If none is found, it becomes a last child, otherwise it becomes a previous sibling. Also implemented this for automatice reparenting.
+
+==Make `order_insertion_by` a list (revision 100)==
+
+[http://djangopeople.net/brosner/ Brian Rosner] [http://simon.bofh.ms/logger/django/2008/01/23/#R1324286 brought this up on #django] - it really should have been in the initial implementation.
+
+Given a list of fields (assume we're inserting a root node for this example), my initial thoughts are that you'd generate a query something like the following to find a suitable right sibling:
+
+{{{
+order_insertion_by = ['name', 'size', 'date']
+
+WHERE
+   parent IS NULL -- would be = %(parent)s for child nodes
+   AND (
+       name > %(name)s
+       OR (name = %(name)s AND size > %(size)s)
+       OR (name = %(name)s AND size = %(size)s AND date > %(date)s)
+   )
+ORDER BY name, size, date, tree_id -- tree_id would be lft for child nodes
+}}}
+
+_Any special cases required for `NULL` values?_ - None are implemented at the moment. It is assumed that any fields specified for ordering will never be `NULL`.
