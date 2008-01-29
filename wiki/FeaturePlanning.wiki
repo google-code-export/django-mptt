@@ -15,6 +15,13 @@ _Features which will be implemented at some point._
 
 _Ideas for features - any details, APIs and example code presented in this section are on a purely speculative, would-like-to-have basis._
 
+==Building the tree for existing data==
+
+Say you have an existing model which has a parent/child relationship and you want to start using MPTT with it - you'll need some way get the tree fields set up with some initial data.
+
+  * Could insert_at be used to do this if we removed the assertion that the model instance it operates on must not have a primary key?
+  * How about walking the tree of data, parent-by-parent, determining what the tree ids should be and performing an execute_many to perform the necessary updates?
+
 ==Newforms components for selecting tree nodes==
 
 Comment by [http://code.google.com/u/ajaksu/ ajaksu] on Jan 06, 2008:
