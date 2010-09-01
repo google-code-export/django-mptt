@@ -1,6 +1,6 @@
 #summary Source code on Github
 
-= Development moved to Github =
+== Development moved to Github ==
 
 Browse source:
   
