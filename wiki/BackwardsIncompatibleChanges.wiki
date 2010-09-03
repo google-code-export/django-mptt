@@ -1,22 +1,17 @@
-#summary Backwards-incompatible changes to Django MPTT since the 0.1 release.
+#summary Backwards-incompatible changes to Django MPTT since the 0.2 release.
 #labels Featured
 
-This page lists backwards-incompatible changes to Django MPTT since the 0.1 release.
+This page lists backwards-incompatible changes to Django MPTT since the 0.2 release.
 
-==Changes made after Django MPTT 0.1==
+== `HEAD` - Backwards incompatible changes since 0.3 release ==
 
-===Revision 77: Model registration changed===
-Registering a model for MPTT is now handled by calling `mptt.register` instead of `mptt.models.treeify`.
+None known. If you find one, it's probably a bug - please report it!
 
-===Revision 41: Simplified the node movement API===
-`TreeManager.move_node` is now the _only_ public means of moving a node using `TreeManager` - it can figure out what to do based on the node and target given. All other node movement methods which were previously documented as public have been renamed to begin with underscores, indicating that they are for internal use.
+== `django-mptt 0.3` - Backwards incompatible changes since 0.2 ==
 
-This also has the benefit of simplifying implementation somewhat, as the methods which actually do the moving can trust `move_node` to give them the correct types of nodes when it matters that a given node must be a root node or a child node.
+=== order_insertion_by ===
 
-==Changes made after Django MPTT 0.2==
-
-===Revision 100: Implemented ordering by multiple fields upon insertion===
-The `order_insertion_by` argument to `mptt.register` must now be a list or other iterable of field names.
+The `order_insertion_by` argument to `mptt.register` must now be a list of field names.
 
 Old format:
 {{{
