@@ -1,13 +1,11 @@
 #summary Backwards-incompatible changes to Django MPTT since the 0.2 release.
 #labels Featured
 
-This page lists backwards-incompatible changes to Django MPTT since the 0.2 release.
-
-== `HEAD` - Backwards incompatible changes since 0.3 release ==
+== `HEAD` - Backwards incompatible changes since 0.3.0 release ==
 
 None known. If you find one, it's probably a bug - please report it!
 
-== `django-mptt 0.3` - Backwards incompatible changes since 0.2 ==
+== `0.3.0` - Backwards incompatible changes since 0.2 ==
 
 === order_insertion_by ===
 
