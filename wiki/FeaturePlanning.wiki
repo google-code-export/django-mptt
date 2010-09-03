@@ -5,22 +5,9 @@
 
 Suggestions are welcome! Comment on this page or create an Issue with feature details (don't worry about the fact that Google Code won't let you mark it as an Enhancement yourself).
 
-=Planned features=
-
-_Features which will be implemented at some point._
-
-*None at the moment.*
-
 =Ideas=
 
 _Ideas for features - any details, APIs and example code presented in this section are on a purely speculative, would-like-to-have basis._
-
-==Building the tree for existing data==
-
-Say you have an existing model which has a parent/child relationship and you want to start using MPTT with it - you'll need some way get the tree fields set up with some initial data.
-
-  * Could insert_at be used to do this if we removed the assertion that the model instance it operates on must not have a primary key?
-  * How about walking the tree of data, parent-by-parent, determining what the tree ids should be and performing an execute_many to perform the necessary updates?
 
 ==Newforms components for selecting tree nodes==
 
@@ -40,7 +27,7 @@ These could be used as part of the implementation of a `newforms` `Field`/`Widge
 
 ==Tree management views (with `django.contrib.admin` integration)==
 
-Create views for managing the tree of any Model MPTT has been used with. Probably best to leave any `django.contrib.admin` integration until the [http://code.djangoproject.com/wiki/NewformsAdminBranch newforms-admin] branch lands in trunk.
+Create views for managing the tree of any Model MPTT has been used with.
 
 How easy would it be to provide admin-specific templates and more general templates should someone wish to use this functionality in [http://www.jonathanbuchanan.plus.com/images/admin.jpg their own app]?
 
@@ -71,40 +58,3 @@ urlpatterns = patterns('',
 ===Related work===
 
   * At the moment, there's no record of which Models MPTT has been used with - keeping a record of these as `mptt.register` is called would make it easy to determine which, if any, Models should be displayed in these views (and prevent multiple calls for the same Model).
-
-=Completed Features=
-
-==Getting root nodes (revisions 70 & 71)==
-
-[http://code.google.com/p/django-mptt/issues/detail?id=5 Issue 5] - add a method to retrieve the root node of a particular tree in the manager.
-
-A model instance method to retrieve the root node for a given node's tree would also be handy.
-
-==Manual insertion API (revision 81)==
-
-Currently, nodes are always added as last children. Provide a means (likely a new method in `TreeManager`) of specifying an insertion point for a node which hasn't been saved yet, using target/position arguments. Modifying `pre_save` not to do anything if tree fields are already set should allow us to do this no problem.
-
-==Automatic ordering when inserting new nodes (revision 84)==
-
-Provide a new `order_insertion_by` argument to `mptt.register`, defaulting to `None`. Modify pre_save so that if a list of field names is given for this setting, we query the database to try to find the appropriate insertion point for the new node. If none is found, it becomes a last child, otherwise it becomes a previous sibling. Also implemented this for automatice reparenting.
-
-==Make `order_insertion_by` a list (revision 100)==
-
-[http://djangopeople.net/brosner/ Brian Rosner] [http://simon.bofh.ms/logger/django/2008/01/23/#R1324286 brought this up on #django] - it really should have been in the initial implementation.
-
-Given a list of fields (assume we're inserting a root node for this example), my initial thoughts are that you'd generate a query something like the following to find a suitable right sibling:
-
-{{{
-order_insertion_by = ['name', 'size', 'date']
-
-WHERE
-   parent IS NULL -- would be = %(parent)s for child nodes
-   AND (
-       name > %(name)s
-       OR (name = %(name)s AND size > %(size)s)
-       OR (name = %(name)s AND size = %(size)s AND date > %(date)s)
-   )
-ORDER BY name, size, date, tree_id -- tree_id would be lft for child nodes
-}}}
-
-_Any special cases required for `NULL` values?_ - None are implemented at the moment. It is assumed that any fields specified for ordering will never be `NULL`.
