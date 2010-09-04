@@ -7,7 +7,9 @@ None known. If you find one, it's probably a bug - please report it!
 
 == `0.3.0` - Backwards incompatible changes since 0.2 ==
 
-=== order_insertion_by *note this was undone in 0.3.1* ===
+=== order_insertion_by ===
+
+*NOTE* This was undone in 0.3.1 - in 0.3.1 you can use either a tuple, a list or just a string.
 
 The `order_insertion_by` argument to `mptt.register` must now be a list of field names.
 
