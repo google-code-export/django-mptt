@@ -1,11 +1,33 @@
 #summary Backwards-incompatible changes to Django MPTT since the 0.2 release.
 #labels Featured
 
-== `HEAD` - Backwards incompatible changes since 0.3.0 release ==
+If you find some backwards incompatible change that's not listed here, it's probably a bug - please report it!
 
-None known. If you find one, it's probably a bug - please report it!
+== `HEAD` - Backwards incompatible changes since `0.3.1` release ==
 
-== `0.3.0` - Backwards incompatible changes since 0.2 ==
+=== `mptt.register()` removed - replaced by abstract models ===
+
+Old way to set up your models (0.3.1 and earlier):
+{{{
+import mptt
+class MyModel(models.Model):
+    ...
+mptt.register(MyModel, order_insertion_by='name')
+}}}
+
+This has now been replaced with model inheritance, and the old keyword args are now specified on an inner MPTTMeta class:
+
+{{{
+from mptt.models import MPTTModel
+class MyModel(MPTTModel):
+    ...
+    class MPTTMeta:
+        order_insertion_by = 'name'
+}}}
+
+See the [http://django-mptt.github.com/django-mptt/models.html#setting-up-a-django-model-for-mptt models documentation] for more info.
+
+== `0.3.0`, `0.3.1` - Backwards incompatible changes since 0.2 ==
 
 === order_insertion_by ===
 
