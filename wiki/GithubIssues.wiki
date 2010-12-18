@@ -1,0 +1,3 @@
+= Project moved to github =
+
+django-mptt has a new home at [https://github.com/django-mptt/django-mptt/issues Github]. All the old issues have been migrated there.
