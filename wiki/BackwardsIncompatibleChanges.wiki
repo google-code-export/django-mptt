@@ -1,7 +1,10 @@
 #summary Backwards-incompatible changes to Django MPTT since the 0.2 release.
 #labels Featured
 
-If you find some backwards incompatible change that's not listed here, it's probably a bug - please report it!
+
+*This page is no longer maintained. Please see the [http://django-mptt.github.com/django-mptt/upgrade.html upgrade notes] in the documentation*
+
+
 
 == `HEAD` - Backwards incompatible changes since `0.3.1` release ==
 
