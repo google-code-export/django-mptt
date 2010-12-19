@@ -1,5 +1,4 @@
 #summary Backwards-incompatible changes to Django MPTT since the 0.2 release.
-#labels Featured
 
 
 *This page is no longer maintained. Please see the [http://django-mptt.github.com/django-mptt/upgrade.html upgrade notes] in the documentation*
